@@ -46,39 +46,55 @@
 <body>
     <h1>Réserve ta place - FC 25 (4-2-2-2)</h1>
     <div class="terrain">
-        <div class="position st1" onclick="toggleReservation(this)">ST</div>
-        <div class="position st2" onclick="toggleReservation(this)">ST</div>
-        <div class="position cam1" onclick="toggleReservation(this)">CAM</div>
-        <div class="position cam2" onclick="toggleReservation(this)">CAM</div>
-        <div class="position cdm1" onclick="toggleReservation(this)">CDM</div>
-        <div class="position cdm2" onclick="toggleReservation(this)">CDM</div>
-        <div class="position cb1" onclick="toggleReservation(this)">CB</div>
-        <div class="position cb2" onclick="toggleReservation(this)">CB</div>
-        <div class="position lb" onclick="toggleReservation(this)">LB</div>
-        <div class="position rb" onclick="toggleReservation(this)">RB</div>
-        <div class="position gk" onclick="toggleReservation(this)">GK</div>
+        <div class="position st1" id="st1" onclick="toggleReservation(this)">ST</div>
+        <div class="position st2" id="st2" onclick="toggleReservation(this)">ST</div>
+        <div class="position cam1" id="cam1" onclick="toggleReservation(this)">CAM</div>
+        <div class="position cam2" id="cam2" onclick="toggleReservation(this)">CAM</div>
+        <div class="position cdm1" id="cdm1" onclick="toggleReservation(this)">CDM</div>
+        <div class="position cdm2" id="cdm2" onclick="toggleReservation(this)">CDM</div>
+        <div class="position cb1" id="cb1" onclick="toggleReservation(this)">CB</div>
+        <div class="position cb2" id="cb2" onclick="toggleReservation(this)">CB</div>
+        <div class="position lb" id="lb" onclick="toggleReservation(this)">LB</div>
+        <div class="position rb" id="rb" onclick="toggleReservation(this)">RB</div>
+        <div class="position gk" id="gk" onclick="toggleReservation(this)">GK</div>
     </div>
+
     <script>
+        // Fonction pour gérer la réservation
         function toggleReservation(element) {
+            let playerName = "";
             if (element.classList.contains('taken')) {
+                // Si la place est déjà réservée, on libère la place
                 element.classList.remove('taken');
                 element.textContent = element.getAttribute("data-original-text");
+                localStorage.removeItem(element.id); // Supprime la réservation dans localStorage
             } else {
-                let playerName = prompt("Entrez votre nom :");
+                // Si la place est libre, on demande un nom pour réserver
+                playerName = prompt("Entrez votre nom :");
                 if (playerName) {
                     element.classList.add('taken');
                     element.setAttribute("data-original-text", element.textContent);
                     element.textContent = playerName;
+                    localStorage.setItem(element.id, playerName); // Sauvegarde dans localStorage
                 }
             }
         }
+
+        // Fonction pour charger les réservations au démarrage de la page
+        function loadReservations() {
+            let positions = ['st1', 'st2', 'cam1', 'cam2', 'cdm1', 'cdm2', 'cb1', 'cb2', 'lb', 'rb', 'gk'];
+            positions.forEach(function(id) {
+                let playerName = localStorage.getItem(id);
+                let positionElement = document.getElementById(id);
+                if (playerName) {
+                    positionElement.classList.add('taken');
+                    positionElement.textContent = playerName;
+                }
+            });
+        }
+
+        // Charger les réservations quand la page est prête
+        window.onload = loadReservations;
     </script>
 </body>
 </html>
-echo "# MTP13-DISPO" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/MTP13691/MTP13-DISPO.git
-git push -u origin main
