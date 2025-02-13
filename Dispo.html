@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche de Disponibilité - FC 25</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; background-color: #2c3e50; color: white; }
+        .terrain {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Football_pitch.svg/800px-Football_pitch.svg.png') no-repeat center;
+            background-size: cover;
+            margin: auto;
+        }
+        .position {
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            background: #27ae60;
+            border-radius: 10px;
+            border: 2px solid #ecf0f1;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+        }
+        .taken { background: #e74c3c; }
+        
+        /* Placement des joueurs */
+        .st1 { top: 10%; left: 35%; }
+        .st2 { top: 10%; left: 55%; }
+        .cam1 { top: 30%; left: 30%; }
+        .cam2 { top: 30%; left: 60%; }
+        .cdm1 { top: 50%; left: 40%; }
+        .cdm2 { top: 50%; left: 55%; }
+        .cb1 { top: 75%; left: 30%; }
+        .cb2 { top: 75%; left: 60%; }
+        .lb { top: 80%; left: 10%; }
+        .rb { top: 80%; left: 80%; }
+        .gk { top: 90%; left: 45%; }
+    </style>
+</head>
+<body>
+    <h1>Réserve ta place - FC 25 (4-2-2-2)</h1>
+    <div class="terrain">
+        <div class="position st1" onclick="toggleReservation(this)">ST</div>
+        <div class="position st2" onclick="toggleReservation(this)">ST</div>
+        <div class="position cam1" onclick="toggleReservation(this)">CAM</div>
+        <div class="position cam2" onclick="toggleReservation(this)">CAM</div>
+        <div class="position cdm1" onclick="toggleReservation(this)">CDM</div>
+        <div class="position cdm2" onclick="toggleReservation(this)">CDM</div>
+        <div class="position cb1" onclick="toggleReservation(this)">CB</div>
+        <div class="position cb2" onclick="toggleReservation(this)">CB</div>
+        <div class="position lb" onclick="toggleReservation(this)">LB</div>
+        <div class="position rb" onclick="toggleReservation(this)">RB</div>
+        <div class="position gk" onclick="toggleReservation(this)">GK</div>
+    </div>
+    <script>
+        function toggleReservation(element) {
+            if (element.classList.contains('taken')) {
+                element.classList.remove('taken');
+                element.textContent = element.getAttribute("data-original-text");
+            } else {
+                let playerName = prompt("Entrez votre nom :");
+                if (playerName) {
+                    element.classList.add('taken');
+                    element.setAttribute("data-original-text", element.textContent);
+                    element.textContent = playerName;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+echo "# MTP13-DISPO" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/MTP13691/MTP13-DISPO.git
+git push -u origin main
